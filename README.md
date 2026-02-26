@@ -1,46 +1,56 @@
-# media-final
-📚 Sistema de Boletim Escolar em Python  Projeto focado em lógica de programação, validação de dados e estruturação de sistemas. Permite cadastro dinâmico de disciplinas, cálculo automático de médias, regra de aprovação (≥ 6.0) e geração de boletim final. Demonstra uso de loops, condicionais e tratamento de exceções.
+print("===== SISTEMA DE BOLETIM ESCOLAR =====")
 
-📚 Student Report Management System
+# Nome do aluno
+nome_aluno = input("Digite o nome do aluno: ")
 
-Sistema de gerenciamento de boletim escolar desenvolvido em Python, com foco em lógica de programação, validação de dados e estruturação de aplicações.
+boletim = []
 
-🚀 Sobre o Projeto
+while True:
+    print("\n--- Cadastro de Matéria ---")
+    
+    nome_materia = input("Digite o nome da matéria: ")
+    
+    notas = []
+    
+    for bimestre in range(1, 5):
+        while True:
+            try:
+                nota = float(input(f"Digite a nota do {bimestre}º bimestre: "))
+                if 0 <= nota <= 10:
+                    notas.append(nota)
+                    break
+                else:
+                    print("Digite uma nota entre 0 e 10.")
+            except ValueError:
+                print("Entrada inválida. Digite apenas números.")
+    
+    media = sum(notas) / 4
+    situacao = "Aprovado" if media >= 6.0 else "Reprovado"
+    
+    boletim.append((nome_materia, media, situacao))
+    
+    continuar = input("Deseja cadastrar outra matéria? (s/n): ").lower()
+    
+    if continuar != "s":
+        break
 
-Este projeto simula um sistema acadêmico onde o professor pode:
 
-Cadastrar disciplinas dinamicamente
+# 📊 Mostrar Boletim Final
+print("\n==============================")
+print(f"BOLETIM FINAL - {nome_aluno}")
+print("==============================")
 
-Inserir 4 notas por matéria
+media_geral = 0
 
-Calcular automaticamente a média final
+for materia, media, situacao in boletim:
+    print(f"Matéria: {materia}")
+    print(f"Média: {media:.1f}")
+    print(f"Situação: {situacao}")
+    print("------------------------------")
+    media_geral += media
 
-Determinar aprovação ou reprovação (média ≥ 6.0)
+if boletim:
+    media_geral /= len(boletim)
+    print(f"Média Geral: {media_geral:.1f}")
 
-Visualizar boletim completo ao final
-
-Calcular média geral do aluno
-
-Validar entradas para evitar erros
-
-🛠 Tecnologias Utilizadas
-
-Python 3
-
-Estruturas de repetição (for, while)
-
-Estruturas condicionais (if/else)
-
-Listas e tuplas
-
-Tratamento de exceções (try/except)
-
-📊 Regras de Negócio
-
-A média final é calculada com base nas 4 notas bimestrais.
-
-O aluno é considerado:
-
-✅ Aprovado se média ≥ 6.0
-
-❌ Reprovado se média < 6.0
+print("\n===== FIM DO PROGRAMA =====")
